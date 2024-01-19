@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:students_payment_system/presentation/widgets/dialogue_boxes.dart';
 import 'package:students_payment_system/utils/functions.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   static const routeName = 'login_page';
@@ -126,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                     labelText: 'Email',
                     hintText: 'example@whatevermail.com',
                     prefixIcon: const Icon(Icons.mail),
-                    prefixIconColor:
-                        Theme.of(context).colorScheme.onBackground,
+                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
                 const SizedBox(
@@ -146,10 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     prefixIcon: const Icon(Icons.lock),
-                    prefixIconColor:
-                        Theme.of(context).colorScheme.onBackground,
-                    suffixIconColor:
-                        Theme.of(context).colorScheme.onBackground,
+                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
+                    suffixIconColor: Theme.of(context).colorScheme.onBackground,
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -171,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     final email = _userEmail.text;
                     final password = _userPassword.text;
-    
+
                     await auth.signInWithEmailAndPassword(
                         context, email, password);
                   },
@@ -180,7 +176,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: const Text('Login'),
                 ),
-                
                 const SizedBox(
                   height: 24.0,
                 ),
@@ -198,8 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: Text(
                         "Click here",
-                        style:
-                            TextStyle(color: Theme.of(context).primaryColor),
+                        style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ],
@@ -215,13 +209,10 @@ class _LoginPageState extends State<LoginPage> {
                       width: 5.0,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Text(
                         "Register here",
-                        style:
-                            TextStyle(color: Theme.of(context).primaryColor),
+                        style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ),
                   ],

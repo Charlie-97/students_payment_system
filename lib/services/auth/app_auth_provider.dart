@@ -5,8 +5,6 @@ import 'package:students_payment_system/services/auth/auth_user.dart';
 
 //Use this class to create the auth functions from the API provided by the BE
 
-
-
 class AppAuthProvider implements my_auth_provider.AuthProvider {
   @override
   Future<AuthUser> createUser(
@@ -38,6 +36,8 @@ class AppAuthProvider implements my_auth_provider.AuthProvider {
 
   @override
   AuthUser? get currentUser {
+    return null;
+
     // final user = FirebaseAuth.instance.currentUser;
     // if (user != null) {
     //   return AuthUser.fromFirebase(user);
@@ -112,6 +112,7 @@ class AppAuthProvider implements my_auth_provider.AuthProvider {
   @override
   Future<void> resetPassword(String email) {
     try {
+      return Future.value();
       // return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     }
     // on FirebaseAuthException catch (e) {
@@ -124,6 +125,7 @@ class AppAuthProvider implements my_auth_provider.AuthProvider {
     //       throw GenericAuthException();
     //   }
     // }
+
     catch (_) {
       throw GenericAuthException();
     }

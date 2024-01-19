@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:students_payment_system/presentation/pages/splash_page.dart';
-import 'package:students_payment_system/services/auth/auth_service.dart';
 import 'package:students_payment_system/utils/providers/edupay_state.dart';
 import 'package:students_payment_system/utils/router/app_router.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
@@ -12,10 +9,10 @@ import 'package:students_payment_system/utils/router/base_navigator.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await AuthService.firebase().initialize();
-  FirebaseFirestore.instance.settings = const Settings(
-    persistenceEnabled: true,
-  );
+  // await AuthService.firebase().initialize();
+  // FirebaseFirestore.instance.settings = const Settings(
+  //   persistenceEnabled: true,
+  // );
   runApp(
     ChangeNotifierProvider<EduPayState>(
       create: (context) => EduPayState(),

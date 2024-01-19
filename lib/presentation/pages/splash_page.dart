@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
 import 'package:students_payment_system/presentation/pages/authentication/email_verification_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/presentation/pages/dashboard_page.dart';
@@ -24,8 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   initCheck() async {
     await Future.delayed(const Duration(seconds: 5));
-
-
 
     final AuthService authService = AuthService.firebase();
     final user = authService.currentUser;
@@ -74,9 +72,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Text(
                   'EduPay',
                   style: TextStyle(
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ),
               const SizedBox(height: 24.0),
@@ -85,10 +84,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Text(
                   'Payment Simplified...',
                   style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w200,
-                      fontStyle: FontStyle.italic,
-                      color: Theme.of(context).colorScheme.onPrimary),
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w200,
+                    fontStyle: FontStyle.italic,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ),
             ],
