@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:students_payment_system/presentation/pages/authentication/register_page.dart';
+import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/presentation/widgets/dialogue_boxes.dart';
 import 'package:students_payment_system/utils/functions.dart';
+import 'package:students_payment_system/utils/router/base_navigator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -165,11 +168,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    final email = _userEmail.text;
-                    final password = _userPassword.text;
+                    BaseNavigator.pushNamed(HomePage.routeName);
+                    // final email = _userEmail.text;
+                    // final password = _userPassword.text;
 
-                    await auth.signInWithEmailAndPassword(
-                        context, email, password);
+                    // await auth.signInWithEmailAndPassword(
+                    //     context, email, password);
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(deviceWidth, 30.0),
@@ -209,7 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                       width: 5.0,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        BaseNavigator.pushNamed(RegisterPage.routeName);
+                      },
                       child: Text(
                         "Register here",
                         style: TextStyle(color: Theme.of(context).primaryColor),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/utils/functions.dart';
+import 'package:students_payment_system/utils/router/base_navigator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -277,7 +279,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 5.0,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        BaseNavigator.pushNamed(LoginPage.routeName);
+                      },
                       child: Text(
                         "Login Here",
                         style: TextStyle(color: Theme.of(context).primaryColor),

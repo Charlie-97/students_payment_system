@@ -1,7 +1,8 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
-import 'package:students_payment_system/presentation/pages/dashboard_page.dart';
+import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/presentation/widgets/snackbar_messages.dart';
 import 'package:students_payment_system/services/auth/auth_exceptions.dart';
 import 'package:students_payment_system/services/auth/auth_service.dart';
@@ -165,11 +166,13 @@ class AuthFunctions {
           final user = _authService.currentUser;
 
           if (user?.isEmailVerified ?? true) {
-            final snackBar = MySnackBar('Logged in successfully as ${user?.displayName}').build();
+            final snackBar =
+                MySnackBar('Logged in successfully as ${user?.displayName}')
+                    .build();
 
             ScaffoldMessenger.of(BaseNavigator.key.currentContext!)
                 .showSnackBar(snackBar);
-            BaseNavigator.pushNamedAndClear(DashboardPage.routeName);
+            BaseNavigator.pushNamedAndClear(HomePage.routeName);
           }
         } on UserNotFoundAuthException {
           final snackBar =

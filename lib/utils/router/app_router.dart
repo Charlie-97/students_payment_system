@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:students_payment_system/presentation/pages/authentication/email_verification_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/register_page.dart';
-import 'package:students_payment_system/presentation/pages/dashboard_page.dart';
+import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/presentation/pages/splash_page.dart';
 
 class AppRouter {
@@ -46,8 +46,9 @@ class AppRouter {
     switch (settings.name) {
       case SplashScreen.routeName:
         return _getPageRoute(const SplashScreen());
-      case DashboardPage.routeName:
-        return _getPageRoute(const DashboardPage());
+
+      case HomePage.routeName:
+        return _getPageRoute(const HomePage());
 
       case LoginPage.routeName:
         return _getPageRoute(const LoginPage());

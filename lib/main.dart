@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:students_payment_system/presentation/pages/splash_page.dart';
+import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/utils/providers/edupay_state.dart';
 import 'package:students_payment_system/utils/router/app_router.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
@@ -33,7 +33,7 @@ class _MyNotesAppState extends State<MyNotesApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: BaseNavigator.key,
-      title: 'EduPay',
+      title: 'UniMart',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -63,7 +63,7 @@ class _MyNotesAppState extends State<MyNotesApp> {
         ),
       ),
       onGenerateRoute: AppRouter.onGenerateRoute,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomePage.routeName,
       debugShowCheckedModeBanner: false,
     );
   }
