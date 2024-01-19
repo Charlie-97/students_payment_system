@@ -3,6 +3,7 @@ import 'package:students_payment_system/presentation/pages/authentication/email_
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/register_page.dart';
 import 'package:students_payment_system/presentation/pages/home_page.dart';
+import 'package:students_payment_system/presentation/pages/screens/product_details.dart';
 import 'package:students_payment_system/presentation/pages/splash_page.dart';
 
 class AppRouter {
@@ -49,6 +50,8 @@ class AppRouter {
 
       case HomePage.routeName:
         return _getPageRoute(const HomePage());
+      case ProductDetail.routeName:
+        return _getPageRoute(const ProductDetail());
 
       case LoginPage.routeName:
         return _getPageRoute(const LoginPage());

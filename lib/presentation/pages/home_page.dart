@@ -11,9 +11,9 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     var children = [
       const DashboardPage(),
-      const Center(),
-      const Center(),
-      const Center(),
+      const Center(child: Text("Categories")),
+      const Center(child: Text("Shops")),
+      const Center(child: Text("Account")),
     ];
     var currentIndex = useState(0);
     var scaffoldKey = useState(GlobalKey<ScaffoldState>());

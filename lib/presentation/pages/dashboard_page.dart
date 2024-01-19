@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:students_payment_system/presentation/pages/screens/product_details.dart';
 import 'package:students_payment_system/utils/constants.dart';
 import 'package:students_payment_system/utils/dimensions.dart';
 import 'package:students_payment_system/utils/icons.dart';
+import 'package:students_payment_system/utils/router/base_navigator.dart';
 
 class DashboardPage extends HookWidget {
   const DashboardPage({super.key});
@@ -74,8 +76,7 @@ class DashboardPage extends HookWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, productDetails,
-                    //     arguments: _filteredProducts[index]);
+                    BaseNavigator.pushNamed(ProductDetail.routeName);
                   },
                   child: Container(
                     height: 200,
@@ -101,6 +102,12 @@ class DashboardPage extends HookWidget {
                           decoration: BoxDecoration(
                             color: getRandomElement(colors),
                             borderRadius: BorderRadius.circular(8),
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                'assets/images/download.jpeg',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 11),
