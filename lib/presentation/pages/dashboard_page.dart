@@ -66,7 +66,7 @@ class DashboardPage extends HookWidget {
             GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.73,
+                childAspectRatio: 0.6,
                 crossAxisSpacing: 0.5,
               ),
               itemCount: 30,
@@ -79,7 +79,7 @@ class DashboardPage extends HookWidget {
                     BaseNavigator.pushNamed(ProductDetail.routeName);
                   },
                   child: Container(
-                    height: 200,
+                    height: 240,
                     width: 173,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -98,6 +98,11 @@ class DashboardPage extends HookWidget {
                         Container(
                           height: 162,
                           width: double.infinity,
+                          // child: SvgPicture.asset(
+                          //   'assets/images/example.svg',
+                          //   fit: BoxFit.scaleDown,
+
+                          // ),
                           // color: AppColor.grey,
                           decoration: BoxDecoration(
                             color: getRandomElement(colors),

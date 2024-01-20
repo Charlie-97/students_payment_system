@@ -30,3 +30,15 @@ xMargin(double width) {
     width: width,
   );
 }
+
+class Screensize {
+  static double height(BuildContext context) {
+    final double h = MediaQuery.sizeOf(context).height;
+    return h;
+  }
+
+  static double width(BuildContext context) {
+    final double w = MediaQuery.sizeOf(context).width;
+    return w;
+  }
+}

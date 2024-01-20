@@ -1,127 +1,257 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:students_payment_system/presentation/widgets/app_bar.dart';
+import 'package:students_payment_system/theme/text_theme.dart';
+import 'package:students_payment_system/utils/dimensions.dart';
 import 'package:students_payment_system/utils/icons.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
   static const routeName = 'product_detail';
+
+  @override
+  State<ProductDetail> createState() => _ProductDetailState();
+}
+
+class _ProductDetailState extends State<ProductDetail> {
+  bool isLiked = false;
+  bool isFollowed = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarWidget(context, 'Description', showAction: true),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: OutlineButtonWidget(
-            onPressed: () async {
-              // CartData cartData = CartData(
-              //   id: widget.data.id,
-              //   productName: widget.data.productName,
-              //   carouselImg: widget.data.carouselImg,
-              //   price: widget.data.price,
-              //   category: widget.data.category,
-              //   desc: widget.data.desc,
-              //   pimage: widget.data.pimage,
-              //   points: widget.data.points,
-              //   ratingCount: widget.data.ratingCount,
-              //   status: widget.data.status,
-              //   stock: widget.data.stock,
-              //   storeid: widget.data.storeid,
-              //   storename: widget.data.storename,
-              //   totalrating: widget.data.totalrating,
-              //   quantity: 1,
-              // );
-              // context.read<CartBloc>().add(AddCartEvent(cart: cartData));
-              // showModalBottomSheet(
-              //   context: context,
-              //   elevation: 0,
-              //   isScrollControlled: true,
-              //   backgroundColor: Colors.transparent,
-              //   builder: (context) {
-              //     return BlocBuilder<CartBloc, CartState>(
-              //       builder: (context, state) {
-              //         return BottomSheetWidget(
-              //           child: Padding(
-              //             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              //             child: Column(
-              //               children: [
-              //                 SizedBox(height: 30),
-              //                 Icon(UIcons.shopping_bag)
-              //                 // SvgPicture.asset(
-              //                 //   'assets/svgs/circle_check.svg',
-              //                 //   color: Colors.green,
-              //                 // ),
-              //                 SizedBox(height: 28),
-              //                 Text(
-              //                   'Product successfully added to your Shopping Cart',
-              //                   textAlign: TextAlign.center,
-              //                   style: TextStyle(
-              //                     color: Colors.deepPurple,
-              //                     fontSize: 18,
-              //                     fontWeight: FontWeight.w600,
-              //                   ),
-              //                 ),
-              //                 SizedBox(height: 12),
-              //                 Text(
-              //                   state is CartLoaded
-              //                       ? 'You now have ${state.cartItems.length} products in your Shopping Cart'
-              //                       : '',
-              //                   textAlign: TextAlign.center,
-              //                   style: TextStyle(
-              //                     color: Colors.grey,
-              //                     fontSize: 14,
-              //                     fontWeight: FontWeight.w600,
-              //                   ),
-              //                 ),
-              //                 SizedBox(height: 32),
-              //                 ButtonWidget(
-              //                   onPressed: () {
-              //                     Navigator.pop(context);
-              //                     Navigator.pushNamed(
-              //                         context, 'shoppingCartRoute');
-              //                   },
-              //                   txt: 'View Shopping Cart',
-              //                 ),
-              //                 SizedBox(height: 15),
-              //                 OutlineButtonWidget(
-              //                   onPressed: () {
-              //                     Navigator.pop(context);
-              //                   },
-              //                   btnName: 'Continue Shopping',
-              //                 ),
-              //                 SizedBox(height: 10),
-              //               ],
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //     );
-              //   },
-              // );
-            },
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  UIcons.shopping_bag,
-                  size: 20,
-                  color: Colors.black,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: Screensize.height(context) * .35,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'assets/images/download.jpeg',
+                  fit: BoxFit.fill,
                 ),
-                SizedBox(width: 10),
-                Text(
-                  'Add to Cart',
+              ),
+              const Gap(9),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Product name',
+                        style: AppTextTheme.bodyLarge(context),
+                      ),
+                      const Gap(6),
+                      const Text(
+                        '\$12,000',
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isLiked = !isLiked;
+                      });
+                    },
+                    icon: Icon(
+                      isLiked ? Icons.favorite : Icons.favorite_border,
+                      size: 32,
+                      color: isLiked ? Colors.red : Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const Gap(12),
+              Row(
+                children: [
+                  const Icon(
+                    UIcons.Shop,
+                    size: 40,
+                  ),
+                  const Gap(12),
+                  const Text('Jiga Store'),
+                  const Expanded(child: SizedBox()),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      elevation: 0,
+                      side: BorderSide(
+                          color: isFollowed ? Colors.black : Colors.deepPurple,
+                          width: 0.4),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isFollowed = !isFollowed;
+                      });
+                    },
+                    child: Text(
+                      isFollowed ? 'Followed' : 'Follow',
+                      style: AppTextTheme.bodyMedium(context).copyWith(
+                          fontSize: 14,
+                          color: isFollowed ? Colors.black : Colors.deepPurple),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey[100],
+                thickness: 1,
+              ),
+              Text(
+                'Product Description',
+                style: AppTextTheme.bodyLarge(context),
+              ),
+              const Gap(9),
+              Text(
+                'Lorem ipsum................',
+                style: AppTextTheme.bodySmall(context),
+              )
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: OutlineButtonWidget(
+                onPressed: () async {
+                  // CartData cartData = CartData(
+                  //   id: widget.data.id,
+                  //   productName: widget.data.productName,
+                  //   carouselImg: widget.data.carouselImg,
+                  //   price: widget.data.price,
+                  //   category: widget.data.category,
+                  //   desc: widget.data.desc,
+                  //   pimage: widget.data.pimage,
+                  //   points: widget.data.points,
+                  //   ratingCount: widget.data.ratingCount,
+                  //   status: widget.data.status,
+                  //   stock: widget.data.stock,
+                  //   storeid: widget.data.storeid,
+                  //   storename: widget.data.storename,
+                  //   totalrating: widget.data.totalrating,
+                  //   quantity: 1,
+                  // );
+                  // context.read<CartBloc>().add(AddCartEvent(cart: cartData));
+                  // showModalBottomSheet(
+                  //   context: context,
+                  //   elevation: 0,
+                  //   isScrollControlled: true,
+                  //   backgroundColor: Colors.transparent,
+                  //   builder: (context) {
+                  //     return BlocBuilder<CartBloc, CartState>(
+                  //       builder: (context, state) {
+                  //         return BottomSheetWidget(
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  //             child: Column(
+                  //               children: [
+                  //                 SizedBox(height: 30),
+                  //                 Icon(UIcons.shopping_bag)
+                  //                 // SvgPicture.asset(
+                  //                 //   'assets/svgs/circle_check.svg',
+                  //                 //   color: Colors.green,
+                  //                 // ),
+                  //                 SizedBox(height: 28),
+                  //                 Text(
+                  //                   'Product successfully added to your Shopping Cart',
+                  //                   textAlign: TextAlign.center,
+                  //                   style: TextStyle(
+                  //                     color: Colors.deepPurple,
+                  //                     fontSize: 18,
+                  //                     fontWeight: FontWeight.w600,
+                  //                   ),
+                  //                 ),
+                  //                 SizedBox(height: 12),
+                  //                 Text(
+                  //                   state is CartLoaded
+                  //                       ? 'You now have ${state.cartItems.length} products in your Shopping Cart'
+                  //                       : '',
+                  //                   textAlign: TextAlign.center,
+                  //                   style: TextStyle(
+                  //                     color: Colors.grey,
+                  //                     fontSize: 14,
+                  //                     fontWeight: FontWeight.w600,
+                  //                   ),
+                  //                 ),
+                  //                 SizedBox(height: 32),
+                  //                 ButtonWidget(
+                  //                   onPressed: () {
+                  //                     Navigator.pop(context);
+                  //                     Navigator.pushNamed(
+                  //                         context, 'shoppingCartRoute');
+                  //                   },
+                  //                   txt: 'View Shopping Cart',
+                  //                 ),
+                  //                 SizedBox(height: 15),
+                  //                 OutlineButtonWidget(
+                  //                   onPressed: () {
+                  //                     Navigator.pop(context);
+                  //                   },
+                  //                   btnName: 'Continue Shopping',
+                  //                 ),
+                  //                 SizedBox(height: 10),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  // );
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      UIcons.shopping_bag,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'Add to Cart',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Gap(12),
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  'Buy Now',
                   style: TextStyle(
                     fontFamily: 'Montserrat',
-                    color: Colors.black,
-                    fontSize: 17,
+                    color: Colors.white,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

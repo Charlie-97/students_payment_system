@@ -77,7 +77,9 @@ class _RegisterPageState extends State<RegisterPage> {
               color: Theme.of(context).colorScheme.onBackground,
               size: 24.0,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              BaseNavigator.pop();
+            }),
         // s
         backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0.5,
@@ -97,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Welcome to My Notes 😁!!!',
+                      'Welcome to Unimart😁!!!',
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const SizedBox(height: 12.0),

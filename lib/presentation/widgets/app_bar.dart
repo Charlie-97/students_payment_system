@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_payment_system/bloc/cart_bloc.dart';
+import 'package:students_payment_system/presentation/pages/cart_page.dart';
 import 'package:students_payment_system/utils/icons.dart';
+import 'package:students_payment_system/utils/router/base_navigator.dart';
 
 PreferredSizeWidget appBarWidget(BuildContext context, String txt,
     {bool showAction = false, showLeading = true, String? type}) {
@@ -23,8 +25,8 @@ PreferredSizeWidget appBarWidget(BuildContext context, String txt,
                       if (state is CartLoaded) {
                         if (state.cartItems.isEmpty) {
                           return IconButton(
-                            onPressed: () => Navigator.pushNamed(
-                                context, 'shoppingCartRoute'),
+                            onPressed: () =>
+                                BaseNavigator.pushNamed(CartPage.routeName),
                             icon: const Icon(UIcons.shopping_cart),
                           );
                         }

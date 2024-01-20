@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:students_payment_system/presentation/pages/authentication/email_verification_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/presentation/pages/authentication/register_page.dart';
+import 'package:students_payment_system/presentation/pages/cart_page.dart';
 import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/presentation/pages/screens/product_details.dart';
 import 'package:students_payment_system/presentation/pages/splash_page.dart';
@@ -59,6 +60,8 @@ class AppRouter {
         return _getPageRoute(const RegisterPage());
       case VerifyEmailPage.routeName:
         return _getPageRoute(const VerifyEmailPage());
+      case CartPage.routeName:
+        return _getPageRoute(const CartPage());
 
       default:
         return _getPageRoute(const SplashScreen());
