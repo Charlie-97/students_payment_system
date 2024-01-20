@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
+import 'package:students_payment_system/services/apis/auth_service.dart';
 import 'package:students_payment_system/utils/functions.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
 
@@ -88,213 +90,231 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Center(
           child: SingleChildScrollView(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 24.0,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Welcome to Unimart😁!!!',
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: 12.0),
-                    Text(
-                      "Please fill in the form below and let's get started.",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                TextFormField(
-                  focusNode: _nameFocus,
-                  onEditingComplete: () {
-                    _emailFocus.requestFocus();
-                  },
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.name,
-                  controller: _userName,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your name';
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    hintText: 'John Doe',
-                    prefixIcon: const Icon(Icons.person),
-                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 24.0,
                   ),
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
-                TextFormField(
-                  focusNode: _emailFocus,
-                  onEditingComplete: () {
-                    _passwordFocus.requestFocus();
-                  },
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _userEmail,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Enter your email address';
-                    }
-                    if (!validateEmail(email: value)) {
-                      return 'Enter a valid email address';
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'example@whatevermail.com',
-                    prefixIcon: const Icon(Icons.mail),
-                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome to UniMart!',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 12.0),
+                      Text(
+                        "Please fill in the form below and let's get started.",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
-                TextFormField(
-                  focusNode: _passwordFocus,
-                  onEditingComplete: () {
-                    _confirmPasswordFocus.requestFocus();
-                  },
-                  obscureText: obscurePassword,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  controller: _userPassword,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: validatePassword,
-                  onChanged: (_) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'min. 8 characters',
-                    prefixIcon: const Icon(Icons.lock),
-                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
-                    suffixIconColor: Theme.of(context).colorScheme.onBackground,
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          final toggleVisibility = setPasswordVisibility(
-                              obscureText: obscurePassword);
-                          obscurePassword = !obscurePassword;
-                          final newIconData = toggleVisibility();
-                          passwordVisibilityIcon = Icon(newIconData);
-                        });
-                      },
-                      icon: passwordVisibilityIcon,
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  TextFormField(
+                    focusNode: _nameFocus,
+                    onEditingComplete: () {
+                      _emailFocus.requestFocus();
+                    },
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.name,
+                    controller: _userName,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                    onChanged: (_) {
+                      setState(() {});
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      hintText: 'John Doe',
+                      prefixIcon: const Icon(Icons.person),
+                      prefixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 12.0,
-                ),
-                TextFormField(
-                  focusNode: _confirmPasswordFocus,
-                  obscureText: obscurePasswordConfirmation,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  controller: _userPasswordConfirmation,
-                  onChanged: (_) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                    errorText: checkPasswordsMatch(
-                      password: _userPassword.text,
-                      passwordConfirmation: _userPasswordConfirmation.text,
-                    )
-                        ? null
-                        : '! Password Mismatch',
-                    labelText: 'Confirm Password',
-                    prefixIcon: const Icon(Icons.lock),
-                    prefixIconColor: Theme.of(context).colorScheme.onBackground,
-                    suffixIconColor: Theme.of(context).colorScheme.onBackground,
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          final toggleConfirmVisibility = setPasswordVisibility(
-                              obscureText: obscurePasswordConfirmation);
-                          obscurePasswordConfirmation =
-                              !obscurePasswordConfirmation;
-                          final newIconData = toggleConfirmVisibility();
-                          confirmPasswordVisibilityIcon = Icon(newIconData);
-                        });
-                      },
-                      icon: confirmPasswordVisibilityIcon,
+                  const SizedBox(
+                    height: 12.0,
+                  ),
+                  TextFormField(
+                    focusNode: _emailFocus,
+                    onEditingComplete: () {
+                      _passwordFocus.requestFocus();
+                    },
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    controller: _userEmail,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Enter your email address';
+                      }
+                      if (!validateEmail(email: value)) {
+                        return 'Enter a valid email address';
+                      }
+                      return null;
+                    },
+                    onChanged: (_) {
+                      setState(() {});
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'example@whatevermail.com',
+                      prefixIcon: const Icon(Icons.mail),
+                      prefixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final userEmail = _userEmail.text.trim();
-                    final userPassword = _userPassword.text;
-                    final confirmPassword = _userPasswordConfirmation.text;
-
-                    final AuthFunctions auth = AuthFunctions();
-
-                    final name = _userName.text;
-                    await auth.signUpWithEmailAndPassword(
-                      context: context,
-                      name: name,
-                      email: userEmail,
-                      password: userPassword,
-                      confirmPassword: confirmPassword,
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(deviceWidth, 30.0),
+                  const SizedBox(
+                    height: 12.0,
                   ),
-                  child: const Text('Register'),
-                ),
-                const SizedBox(
-                  height: 24.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already have an account?'),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        BaseNavigator.pushNamed(LoginPage.routeName);
-                      },
-                      child: Text(
-                        "Login Here",
-                        style: TextStyle(color: Theme.of(context).primaryColor),
+                  TextFormField(
+                    focusNode: _passwordFocus,
+                    onEditingComplete: () {
+                      _confirmPasswordFocus.requestFocus();
+                    },
+                    obscureText: obscurePassword,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    controller: _userPassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: validatePassword,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      hintText: 'min. 6 characters',
+                      prefixIcon: const Icon(Icons.lock),
+                      prefixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      suffixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            final toggleVisibility = setPasswordVisibility(
+                                obscureText: obscurePassword);
+                            obscurePassword = !obscurePassword;
+                            final newIconData = toggleVisibility();
+                            passwordVisibilityIcon = Icon(newIconData);
+                          });
+                        },
+                        icon: passwordVisibilityIcon,
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 100.0,
-                )
-              ],
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextFormField(
+                    focusNode: _confirmPasswordFocus,
+                    obscureText: obscurePasswordConfirmation,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    controller: _userPasswordConfirmation,
+                    onChanged: (_) {
+                      setState(() {});
+                    },
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (!checkPasswordsMatch(
+                        password: _userPassword.text,
+                        passwordConfirmation: _userPasswordConfirmation.text,
+                      )) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      errorText: checkPasswordsMatch(
+                        password: _userPassword.text,
+                        passwordConfirmation: _userPasswordConfirmation.text,
+                      )
+                          ? null
+                          : '! Password Mismatch',
+                      labelText: 'Confirm Password',
+                      prefixIcon: const Icon(Icons.lock),
+                      prefixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      suffixIconColor:
+                          Theme.of(context).colorScheme.onBackground,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            final toggleConfirmVisibility =
+                                setPasswordVisibility(
+                                    obscureText: obscurePasswordConfirmation);
+                            obscurePasswordConfirmation =
+                                !obscurePasswordConfirmation;
+                            final newIconData = toggleConfirmVisibility();
+                            confirmPasswordVisibilityIcon = Icon(newIconData);
+                          });
+                        },
+                        icon: confirmPasswordVisibilityIcon,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24.0),
+                  Consumer<AuthService>(
+                    builder: (context, state, child) {
+                      return state.isLoading
+                          ? const CircularProgressIndicator.adaptive()
+                          : ElevatedButton(
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  state.register(
+                                    context,
+                                    email: _userEmail.text,
+                                    pass: _userPassword.text,
+                                    uname: _userName.text,
+                                  );
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: Size(deviceWidth, 30.0),
+                              ),
+                              child: const Text('Register'),
+                            );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 24.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Already have an account?'),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          BaseNavigator.pushNamed(LoginPage.routeName);
+                        },
+                        child: Text(
+                          "Login Here",
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 100.0,
+                  )
+                ],
+              ),
             ),
           ),
         ),
