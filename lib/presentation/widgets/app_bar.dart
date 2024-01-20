@@ -33,8 +33,8 @@ PreferredSizeWidget appBarWidget(BuildContext context, String txt,
                         return Stack(
                           children: [
                             IconButton(
-                              onPressed: () => Navigator.pushNamed(
-                                  context, 'shoppingCartRoute'),
+                              onPressed: () =>
+                                  BaseNavigator.pushNamed(CartPage.routeName),
                               icon: const Icon(UIcons.shopping_cart),
                             ),
                             Padding(
@@ -65,7 +65,7 @@ PreferredSizeWidget appBarWidget(BuildContext context, String txt,
                       } else {
                         return IconButton(
                           onPressed: () =>
-                              Navigator.pushNamed(context, 'shoppingCartRoute'),
+                              BaseNavigator.pushNamed(CartPage.routeName),
                           icon: const Icon(UIcons.shopping_cart),
                         );
                       }

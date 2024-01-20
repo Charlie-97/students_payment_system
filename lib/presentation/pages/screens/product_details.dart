@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:students_payment_system/bloc/cart_bloc.dart';
 import 'package:students_payment_system/presentation/widgets/app_bar.dart';
+import 'package:students_payment_system/services/model/cart_model.dart';
 import 'package:students_payment_system/theme/text_theme.dart';
 import 'package:students_payment_system/utils/dimensions.dart';
 import 'package:students_payment_system/utils/icons.dart';
+import 'package:uuid/uuid.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
@@ -110,148 +114,183 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
               const Gap(9),
               Text(
-                'Lorem ipsum................',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
                 style: AppTextTheme.bodySmall(context),
               )
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: OutlineButtonWidget(
-                onPressed: () async {
-                  // CartData cartData = CartData(
-                  //   id: widget.data.id,
-                  //   productName: widget.data.productName,
-                  //   carouselImg: widget.data.carouselImg,
-                  //   price: widget.data.price,
-                  //   category: widget.data.category,
-                  //   desc: widget.data.desc,
-                  //   pimage: widget.data.pimage,
-                  //   points: widget.data.points,
-                  //   ratingCount: widget.data.ratingCount,
-                  //   status: widget.data.status,
-                  //   stock: widget.data.stock,
-                  //   storeid: widget.data.storeid,
-                  //   storename: widget.data.storename,
-                  //   totalrating: widget.data.totalrating,
-                  //   quantity: 1,
-                  // );
-                  // context.read<CartBloc>().add(AddCartEvent(cart: cartData));
-                  // showModalBottomSheet(
-                  //   context: context,
-                  //   elevation: 0,
-                  //   isScrollControlled: true,
-                  //   backgroundColor: Colors.transparent,
-                  //   builder: (context) {
-                  //     return BlocBuilder<CartBloc, CartState>(
-                  //       builder: (context, state) {
-                  //         return BottomSheetWidget(
-                  //           child: Padding(
-                  //             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  //             child: Column(
-                  //               children: [
-                  //                 SizedBox(height: 30),
-                  //                 Icon(UIcons.shopping_bag)
-                  //                 // SvgPicture.asset(
-                  //                 //   'assets/svgs/circle_check.svg',
-                  //                 //   color: Colors.green,
-                  //                 // ),
-                  //                 SizedBox(height: 28),
-                  //                 Text(
-                  //                   'Product successfully added to your Shopping Cart',
-                  //                   textAlign: TextAlign.center,
-                  //                   style: TextStyle(
-                  //                     color: Colors.deepPurple,
-                  //                     fontSize: 18,
-                  //                     fontWeight: FontWeight.w600,
-                  //                   ),
-                  //                 ),
-                  //                 SizedBox(height: 12),
-                  //                 Text(
-                  //                   state is CartLoaded
-                  //                       ? 'You now have ${state.cartItems.length} products in your Shopping Cart'
-                  //                       : '',
-                  //                   textAlign: TextAlign.center,
-                  //                   style: TextStyle(
-                  //                     color: Colors.grey,
-                  //                     fontSize: 14,
-                  //                     fontWeight: FontWeight.w600,
-                  //                   ),
-                  //                 ),
-                  //                 SizedBox(height: 32),
-                  //                 ButtonWidget(
-                  //                   onPressed: () {
-                  //                     Navigator.pop(context);
-                  //                     Navigator.pushNamed(
-                  //                         context, 'shoppingCartRoute');
-                  //                   },
-                  //                   txt: 'View Shopping Cart',
-                  //                 ),
-                  //                 SizedBox(height: 15),
-                  //                 OutlineButtonWidget(
-                  //                   onPressed: () {
-                  //                     Navigator.pop(context);
-                  //                   },
-                  //                   btnName: 'Continue Shopping',
-                  //                 ),
-                  //                 SizedBox(height: 10),
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         );
-                  //       },
-                  //     );
-                  //   },
-                  // );
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      UIcons.shopping_bag,
-                      size: 20,
-                      color: Colors.black,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlineButtonWidget(
+                  onPressed: () async {
+                    CartData cartData = CartData(
+                      id: const Uuid().v4().toString(),
+                      productName: "widget.data.productName",
+                      carouselImg: const ["widget.data.carouselImg"],
+                      price: "widget.data.price",
+                      category: "widget.data.category",
+                      desc: "widget.data.desc",
+                      pimage: "widget.data.pimage",
+                      points: 9,
+                      ratingCount: "23",
+                      status: "false",
+                      stock: "widget.data.stock",
+                      storeid: "widget.data.storeid",
+                      storename: "widget.data.storename",
+                      totalrating: "widget.data.totalrating",
+                      quantity: 1,
+                    );
+                    context.read<CartBloc>().add(AddCartEvent(cart: cartData));
+                    showModalBottomSheet(
+                      context: context,
+                      elevation: 0,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) {
+                        return BlocBuilder<CartBloc, CartState>(
+                          builder: (context, state) {
+                            return SingleChildScrollView(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 0, bottom: 20),
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(height: 30),
+                                        const Icon(UIcons.shopping_bag),
+                                        // SvgPicture.asset(
+                                        //   'assets/svgs/circle_check.svg',
+                                        //   color: Colors.green,
+                                        // ),
+                                        const SizedBox(height: 28),
+                                        const Text(
+                                          'Product successfully added to your Shopping Cart',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.deepPurple,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          state is CartLoaded
+                                              ? 'You now have ${state.cartItems.length} products in your Shopping Cart'
+                                              : '',
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 32),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0)),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.pushNamed(
+                                                context, 'shoppingCartRoute');
+                                          },
+                                          child: const Text(
+                                            'View Shopping Cart',
+                                            style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          // txt: 'View Shopping Cart',
+                                        ),
+                                        const SizedBox(height: 15),
+                                        OutlineButtonWidget(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          btnName: 'Continue Shopping',
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        UIcons.shopping_bag,
+                        size: 20,
                         color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Gap(12),
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'Buy Now',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                      SizedBox(width: 10),
+                      Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-          ],
+              const Gap(12),
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    'Buy Now',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

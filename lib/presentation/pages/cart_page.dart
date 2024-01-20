@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:students_payment_system/models/cart_item_model.dart';
 import 'package:students_payment_system/presentation/pages/screens/product_details.dart';
 import 'package:students_payment_system/presentation/widgets/app_bar.dart';
