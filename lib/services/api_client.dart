@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:students_payment_system/services/model/auth_model/auth_model.dart';
 import 'package:students_payment_system/utils/constants.dart';
 
-String url = "https://mint-dev-ivory.vercel.app/api/";
+String url = "https://mint-backend-mbjq.onrender.com/api/";
 
 class Client {
   Future<CacheOptions> cacheOption() async {
@@ -42,7 +42,7 @@ class ApiInterceptors extends QueuedInterceptorsWrapper {
     final box = Hive.box(Boxes.authBox);
     final accessToken = box.get(BxKey.accessToken, defaultValue: "");
     print("$accessToken --check");
-    options.headers['Authorization'] = 'Bearer $accessToken';
+    options.headers['Authorization'] = 'Token $accessToken';
     return handler.next(options);
   }
 

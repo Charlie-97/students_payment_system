@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:students_payment_system/presentation/pages/home_page.dart';
+import 'package:students_payment_system/presentation/pages/screens/payment_success.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
 
 class WebViewWidget extends StatefulWidget {
@@ -89,6 +90,10 @@ class _WebViewWidgetState extends State<WebViewWidget> {
                   if (url.toString().contains("/${widget.data['cancelUrl']}")) {
                     if (Navigator.canPop(context)) {
                       Navigator.pop(context);
+                      BaseNavigator.key.currentState!.pushNamedAndRemoveUntil(
+                        PaymentSuccess.routeName,
+                        (route) => false,
+                      );
                     }
                   }
                 },

@@ -81,6 +81,7 @@ Future postRequest({
       final response = await _client
           .init(baseUrl: baseUrl)
           .post(url, data: body, options: options);
+      print(response);
       onResponse(response);
     } else {
       onError(ApiResponse(message: AppTexts.noInternet, status: false));
@@ -108,6 +109,17 @@ Future postRequest({
       );
       return;
     }
+    if (e.response?.statusCode == 404) {
+      onError(
+        ApiResponse(
+          message: "This is a check",
+          status: false,
+        ),
+        error: e,
+      );
+      return;
+    }
+
     if (e.response?.statusCode == 400) {
       onError(
         ApiResponse(
@@ -133,6 +145,7 @@ Future postRequest({
   } on TimeoutException catch (_) {
     onError(ApiResponse(message: AppTexts.timeoutMsg, status: false));
   } catch (e) {
+    print("this is $e");
     onError(ApiResponse(message: AppTexts.unableConn, status: false), error: e);
   }
 }

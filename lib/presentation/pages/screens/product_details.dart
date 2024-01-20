@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:students_payment_system/bloc/cart_bloc.dart';
+import 'package:students_payment_system/presentation/pages/cart_page.dart';
 import 'package:students_payment_system/presentation/widgets/app_bar.dart';
 import 'package:students_payment_system/services/model/cart_model.dart';
 import 'package:students_payment_system/theme/text_theme.dart';
 import 'package:students_payment_system/utils/dimensions.dart';
 import 'package:students_payment_system/utils/icons.dart';
+import 'package:students_payment_system/utils/router/base_navigator.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -214,8 +216,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                           ),
                                           onPressed: () {
                                             Navigator.pop(context);
-                                            Navigator.pushNamed(
-                                                context, 'shoppingCartRoute');
+                                            BaseNavigator.pushNamed(
+                                                CartPage.routeName);
                                           },
                                           child: const Text(
                                             'View Shopping Cart',

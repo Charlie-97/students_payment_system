@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:students_payment_system/presentation/pages/authentication/register_page.dart';
+import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/presentation/widgets/buttons_widget.dart';
 import 'package:students_payment_system/presentation/widgets/dialogue_boxes.dart';
 import 'package:students_payment_system/services/apis/auth_service.dart';
@@ -132,6 +133,8 @@ class LoginPage extends HookWidget {
                           ? const CircularProgressIndicator.adaptive()
                           : ElevatedButton(
                               onPressed: () async {
+                                // BaseNavigator.pushNamedAndClear(
+                                //     HomePage.routeName);
                                 if (formKey.currentState!.validate()) {
                                   state.login(
                                     context,

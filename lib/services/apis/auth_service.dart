@@ -87,30 +87,35 @@ class AuthService extends DisposableProvider {
     startloading();
     await postRequest(
       url: 'wallet/load',
+      baseUrl: 'https://mint-backend-mbjq.onrender.com/api/',
       body: {"wallet_id": 1, "amount": 12100},
+      // options: Options(headers: {
+      //   'Authorization': 'Token ${getLoginInfo().accessToken}',
+      // }),
+      // body: FormData.fromMap({"wallet_id": 1, "amount": 12100}),
+
       onResponse: (response) {
         print(response.data);
-        AuthModel model = AuthModel.fromJson(response.data);
+        // AuthModel model = AuthModel.fromJson(response.data);
         stoploading();
+        print(response.data['payment_link']['checkout_url']);
 
-        if (model.paymentUrl != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => WebViewWidget(
-                data: [
-                  {
-                    'url': model.paymentUrl,
-                    'cancelUrl': 'cancel',
-                  }
-                ],
-              ),
+        // if (model.paymentUrl != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => WebViewWidget(
+              data: {
+                'url': response.data['payment_link']['checkout_url'],
+                'cancelUrl': 'random.com',
+              },
             ),
-          );
-        } else {
-          AppFunction.showAlert(context, "An error occured!",
-              type: AlertType.error);
-        }
+          ),
+        ); // model.paymentUrl,
+        // } else {
+        //   AppFunction.showAlert(context, "An error occured!",
+        //       type: AlertType.error);
+        // }
       },
       onError: (resp, {error}) {
         stoploading();

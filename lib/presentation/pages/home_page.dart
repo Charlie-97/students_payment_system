@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:students_payment_system/presentation/pages/dashboard_page.dart';
+import 'package:students_payment_system/presentation/pages/screens/account.dart';
 import 'package:students_payment_system/utils/icons.dart';
 
 class HomePage extends HookWidget {
@@ -13,7 +14,7 @@ class HomePage extends HookWidget {
       const DashboardPage(),
       const Center(child: Text("Categories")),
       const Center(child: Text("Shops")),
-      const Center(child: Text("Account")),
+      const AccountPage(),
     ];
     var currentIndex = useState(0);
     var scaffoldKey = useState(GlobalKey<ScaffoldState>());

@@ -6,6 +6,7 @@ import 'package:students_payment_system/presentation/widgets/app_bar.dart';
 import 'package:students_payment_system/services/apis/auth_service.dart';
 import 'package:students_payment_system/services/model/cart_model.dart';
 import 'package:students_payment_system/utils/constants.dart';
+import 'package:students_payment_system/utils/icons.dart';
 
 // class CartPage extends StatefulWidget {
 //   const CartPage({super.key});
@@ -72,6 +73,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  TextEditingController userPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -442,6 +444,22 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             const SizedBox(height: 30),
+                          
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: TextFormField(
+                                controller: userPassword,
+                                textInputAction: TextInputAction.done,
+                                decoration: InputDecoration(
+                                  labelText: 'Enter delivery address',
+                                  prefixIcon: const Icon(UIcons.location_tick),
+                                  prefixIconColor:
+                                      Theme.of(context).colorScheme.onBackground,
+                                  suffixIconColor:
+                                      Theme.of(context).colorScheme.onBackground,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
