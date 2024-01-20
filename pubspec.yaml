@@ -59,6 +59,7 @@ dependencies:
   flutter_svg: ^2.0.9
   gap: ^3.0.1
   uuid: ^4.3.3
+  flutter_inappwebview: ^6.0.0-beta.25
 
 dev_dependencies:
   flutter_test:

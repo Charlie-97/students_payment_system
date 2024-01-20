@@ -77,6 +77,7 @@ Future postRequest({
   try {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      print("Url - $url");
       final response = await _client
           .init(baseUrl: baseUrl)
           .post(url, data: body, options: options);
@@ -85,6 +86,7 @@ Future postRequest({
       onError(ApiResponse(message: AppTexts.noInternet, status: false));
     }
   } on DioException catch (e) {
+    print("e.response!.data - ${e.response!.data}");
     if (e.response != null && e.response!.statusCode == 401) {
       onError(
         ApiResponse(

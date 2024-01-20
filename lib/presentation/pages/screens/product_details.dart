@@ -131,19 +131,19 @@ class _ProductDetailState extends State<ProductDetail> {
                   onPressed: () async {
                     CartData cartData = CartData(
                       id: const Uuid().v4().toString(),
-                      productName: "widget.data.productName",
+                      productName: "Black Tote Bag 12pcs",
                       carouselImg: const ["widget.data.carouselImg"],
-                      price: "widget.data.price",
-                      category: "widget.data.category",
-                      desc: "widget.data.desc",
+                      price: "2000",
+                      category: "Bag",
+                      desc: "a black tote bag here with tick handle",
                       pimage: "widget.data.pimage",
                       points: 9,
                       ratingCount: "23",
                       status: "false",
-                      stock: "widget.data.stock",
-                      storeid: "widget.data.storeid",
-                      storename: "widget.data.storename",
-                      totalrating: "widget.data.totalrating",
+                      stock: "Store",
+                      storeid: "09320320302903",
+                      storename: "Jiga Store",
+                      totalrating: "4.5",
                       quantity: 1,
                     );
                     context.read<CartBloc>().add(AddCartEvent(cart: cartData));

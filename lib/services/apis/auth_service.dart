@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:students_payment_system/presentation/pages/home_page.dart';
+import 'package:students_payment_system/presentation/widgets/webview.dart';
 import 'package:students_payment_system/services/api.dart';
 import 'package:students_payment_system/services/model/auth_model/auth_model.dart';
 import 'package:students_payment_system/utils/constants.dart';
@@ -68,7 +69,44 @@ class AuthService extends DisposableProvider {
         stoploading();
 
         if (model.token != null) {
+          box.put(BxKey.accessToken, model.token);
           BaseNavigator.key.currentState!.pushNamed(HomePage.routeName);
+        } else {
+          AppFunction.showAlert(context, "An error occured!",
+              type: AlertType.error);
+        }
+      },
+      onError: (resp, {error}) {
+        stoploading();
+        AppFunction.showAlert(context, resp.message, type: AlertType.error);
+      },
+    );
+  }
+
+  void paymentlink(BuildContext context) async {
+    startloading();
+    await postRequest(
+      url: 'wallet/load',
+      body: {"wallet_id": 1, "amount": 12100},
+      onResponse: (response) {
+        print(response.data);
+        AuthModel model = AuthModel.fromJson(response.data);
+        stoploading();
+
+        if (model.paymentUrl != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => WebViewWidget(
+                data: [
+                  {
+                    'url': model.paymentUrl,
+                    'cancelUrl': 'cancel',
+                  }
+                ],
+              ),
+            ),
+          );
         } else {
           AppFunction.showAlert(context, "An error occured!",
               type: AlertType.error);

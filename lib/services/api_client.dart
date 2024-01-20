@@ -27,6 +27,7 @@ class Client {
   Dio init({String? baseUrl}) {
     Dio dio = Dio();
     dio.options.baseUrl = baseUrl ?? url;
+    print("1. ${dio.options.baseUrl}");
     dio.interceptors.add(ApiInterceptors());
     cacheOption().then(
         (value) => dio.interceptors.add(DioCacheInterceptor(options: value)));
@@ -40,6 +41,7 @@ class ApiInterceptors extends QueuedInterceptorsWrapper {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final box = Hive.box(Boxes.authBox);
     final accessToken = box.get(BxKey.accessToken, defaultValue: "");
+    print("$accessToken --check");
     options.headers['Authorization'] = 'Bearer $accessToken';
     return handler.next(options);
   }

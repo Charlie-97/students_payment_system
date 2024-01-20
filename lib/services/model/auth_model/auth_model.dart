@@ -13,12 +13,14 @@ class AuthModel {
   String? username;
   String? email;
   String? token;
+  String? paymentUrl;
 
   AuthModel({
     this.id,
     this.username,
     this.email,
     this.token,
+    this.paymentUrl,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
@@ -26,6 +28,7 @@ class AuthModel {
         username: json["username"],
         email: json["email"],
         token: json["token"],
+        paymentUrl: json["payment link"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,5 +36,6 @@ class AuthModel {
         "username": username,
         "email": email,
         "token": token,
+        "payment link": paymentUrl,
       };
 }
