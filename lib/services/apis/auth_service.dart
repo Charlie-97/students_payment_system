@@ -4,9 +4,11 @@ import 'package:students_payment_system/presentation/pages/home_page.dart';
 import 'package:students_payment_system/services/api.dart';
 import 'package:students_payment_system/services/model/auth_model/auth_model.dart';
 import 'package:students_payment_system/utils/constants.dart';
+import 'package:students_payment_system/utils/functions.dart';
+import 'package:students_payment_system/utils/providers/provider_list.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
 
-class AuthService extends ChangeNotifier {
+class AuthService extends DisposableProvider {
   bool isLoading = false;
   final box = Hive.box(Boxes.authBox);
   AuthModel authModel = AuthModel();
@@ -22,11 +24,11 @@ class AuthService extends ChangeNotifier {
   }
 
   /// Register User
-  void register(BuildContext context, {dynamic value}) async {
+  void register(BuildContext context, {uname, email, pass}) async {
     startloading();
     await postRequest(
       url: 'register',
-      body: value!.toForm(),
+      body: {"username": uname, "email": email, "password": pass},
       onResponse: (response) {
         stoploading();
 
@@ -42,41 +44,39 @@ class AuthService extends ChangeNotifier {
               refreshTokenExpires: model.token,
             ),
           );
-          // Navigator.pushNamed(context, otpVerificationRoute);
+          BaseNavigator.key.currentState!.pushNamed(HomePage.routeName);
         } else {
-          // AppFunction.showAlert(context, model.message!, type: AlertType.error);
+          AppFunction.showAlert(context, "An error occured!",
+              type: AlertType.error);
         }
       },
       onError: (resp, {error}) {
         stoploading();
-
-        // AppFunction.showAlert(context, resp.message, type: AlertType.error);
+        AppFunction.showAlert(context, resp.message, type: AlertType.error);
       },
     );
   }
 
   /// Login user
-  void login(BuildContext context, String value) async {
+  void login(BuildContext context, {uname, pass}) async {
     startloading();
     await postRequest(
       url: 'login',
-      body: {
-        "userInfo": value,
-        "app": "DRIVER",
-      },
+      body: {"username": uname, "password": pass},
       onResponse: (response) {
         AuthModel model = AuthModel.fromJson(response.data);
         stoploading();
 
-        if (model.id != null) {
+        if (model.token != null) {
           BaseNavigator.key.currentState!.pushNamed(HomePage.routeName);
         } else {
-          // AppFunction.showAlert(context, model.message!, type: AlertType.error);
+          AppFunction.showAlert(context, "An error occured!",
+              type: AlertType.error);
         }
       },
       onError: (resp, {error}) {
         stoploading();
-        // AppFunction.showAlert(context, resp.message, type: AlertType.error);
+        AppFunction.showAlert(context, resp.message, type: AlertType.error);
       },
     );
   }
@@ -128,10 +128,10 @@ class AuthService extends ChangeNotifier {
     );
   }
 
-  // @override
-  // void disposeValues() {
-  //   authModel = AuthModel();
-  // }
+  @override
+  void disposeValues() {
+    authModel = AuthModel();
+  }
 }
 
 class LoginInfoModel {

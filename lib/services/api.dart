@@ -106,16 +106,16 @@ Future postRequest({
       );
       return;
     }
-    /* if (e.response?.statusCode == 400) {
+    if (e.response?.statusCode == 400) {
       onError(
         ApiResponse(
-          message: e.response!.data['message'],
+          message: e.response!.data['non_field_errors'][0],
           status: false,
         ),
         error: e,
       );
       return;
-    } */
+    }
 
     onError(
       ApiResponse(
