@@ -1,12 +1,41 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:students_payment_system/presentation/pages/authentication/login_page.dart';
 import 'package:students_payment_system/presentation/pages/home_page.dart';
+import 'package:students_payment_system/presentation/pages/splash_page.dart';
 import 'package:students_payment_system/presentation/widgets/snackbar_messages.dart';
 import 'package:students_payment_system/services/auth/auth_exceptions.dart';
 import 'package:students_payment_system/services/auth/auth_service.dart';
+import 'package:students_payment_system/utils/constants.dart';
 import 'package:students_payment_system/utils/router/base_navigator.dart';
+
+class AppFunction {
+  static Future<void> logout() async {
+    final box = Hive.box(Boxes.authBox);
+    box.clear();
+    if (BaseNavigator.key.currentState != null) {
+      BaseNavigator.key.currentState!.pushNamed(
+        SplashScreen.routeName,
+        arguments: 1,
+      );
+    }
+  }
+
+  static Future<void> softlogout() async {
+    if (BaseNavigator.key.currentState != null) {
+      BaseNavigator.key.currentState!.pushReplacementNamed(
+        SplashScreen.routeName,
+        arguments: 1,
+      );
+    }
+  }
+
+  static void forcedLogout(String message) {
+    if (message == "User not logged in") logout();
+  }
+}
 
 Function setPasswordVisibility({required bool obscureText}) {
   return () {
